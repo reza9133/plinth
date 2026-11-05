@@ -1,0 +1,22 @@
+{
+  "name": "plinth-tools",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Deploy, commitment and live end-to-end helpers for the Plinth intelligent contract (GenLayer Studionet)",
+  "scripts": {
+    "keys": "node scripts/keys.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "commit": "node scripts/commit.mjs",
+    "live:quick": "node e2e/live.mjs --quick",
+    "live": "node e2e/live.mjs --full",
+    "live:sim": "node e2e/live.mjs --quick --simulate"
+  },
+  "dependencies": {
+    "genlayer-js": "1.1.8",
+    "viem": "2.57.13"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

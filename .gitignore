@@ -1,0 +1,7 @@
+.env
+.plinth-address
+node_modules/
+__pycache__/
+.pytest_cache/
+artifacts/
+*.pyc
