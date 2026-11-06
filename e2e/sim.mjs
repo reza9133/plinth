@@ -328,6 +328,12 @@ export async function createSimEnv({ quirk = false, rateLimit = false } = {}) {
     const sender = account?.address ?? "0x0000000000000000000000000000000000000000";
     return {
       async writeContract({ address, functionName, args = [], value = 0n }) {
+        if (rateLimit) {
+          // sending also costs a read call (the gas estimate), and sending itself is limited to 30 a minute
+          while (readTimes.length && readTimes[0] < clock - 60) readTimes.shift();
+          if (readTimes.length >= 30) throw new Error("An unknown RPC error occurred.\n\nDetails: Rate limit exceeded: 30 requests per minute");
+          readTimes.push(clock);
+        }
         tick(4); // a transaction takes a few seconds to be decided
         const K = contracts.get(address.toLowerCase());
         const hash = "0x" + (++txCount).toString(16).padStart(64, "0");

@@ -23,7 +23,7 @@ const [OUT_WON, OUT_LOST, OUT_EXCLUDED, OUT_FORFEITED] = [1, 2, 3, 4];
 const RULES =
   "Be about developer tools or open source|Make no promise of returns or guaranteed profit|Do not imitate another brand or person";
 const MSG = {
-  good1: "Ship faster with the Forge CLI, an open source build tool.",
+  good1: "Ship faster with Brindle, an open source build tool for small teams.",
   good2: "Hextrace is an open source fuzzing library that finds bugs in Rust projects.",
   good3: "Plain-text notes for developers: an open source editor plugin for fast code review.",
   good4: "Quillbench, an open source benchmark runner for small command line tools.",
@@ -71,8 +71,9 @@ function parseMaybeJson(raw) {
 }
 
 // Studionet allows 30 read calls a minute, and two scenarios poll at once, so every read goes through one shared pace
-// (a read every 2.6 s at most), and a "rate limit" answer is waited out instead of counted as a failure.
-const READ_GAP_MS = 2600;
+// (a read every 3.5 s at most, a write every 3 s; sending a write also costs a read call for the gas estimate), and a "rate limit" answer is waited out instead of counted as a failure.
+const READ_GAP_MS = 3500;
+const WRITE_GAP_MS = 3000;
 async function pace(ctx) {
   const at = Math.max(ctx.env.nowMs(), ctx.nextRead ?? 0);
   ctx.nextRead = at + READ_GAP_MS;
@@ -80,7 +81,14 @@ async function pace(ctx) {
   if (wait > 0) await ctx.env.sleep(wait);
 }
 
-async function view(ctx, fn, args = [], tries = 4) {
+async function paceWrite(ctx) {
+  const at = Math.max(ctx.env.nowMs(), ctx.nextWrite ?? 0);
+  ctx.nextWrite = at + WRITE_GAP_MS;
+  const wait = at - ctx.env.nowMs();
+  if (wait > 0) await ctx.env.sleep(wait);
+}
+
+async function view(ctx, fn, args = [], tries = 6) {
   let last;
   let limited = 0;
   for (let i = 0; i < tries; ) {
@@ -133,12 +141,32 @@ class Actor {
       let receipt = null;
       let thrown = null;
       let timedOut = false;
-      try {
-        hash = await this.client.writeContract({ address: this.ctx.contract, functionName: fn, args, value });
-        receipt = await this.ctx.env.waitTx(this.client, hash);
-      } catch (err) {
-        thrown = String(err?.message ?? err).slice(0, 300);
-        timedOut = hash !== null && /timeout|retries|timed out|exceeded/i.test(thrown);
+      // Sending: a "rate limit" answer means the call was refused before it did anything, so it is safe to send again.
+      for (let attempt = 0; attempt < 6; attempt++) {
+        try {
+          await paceWrite(this.ctx);
+          hash = await this.client.writeContract({ address: this.ctx.contract, functionName: fn, args, value });
+          thrown = null;
+          break;
+        } catch (err) {
+          thrown = String(err?.message ?? err).slice(0, 300);
+          if (/rate limit/i.test(thrown) && attempt < 5) {
+            const until = this.ctx.env.nowMs() + 20000;
+            this.ctx.nextWrite = until;
+            this.ctx.nextRead = Math.max(this.ctx.nextRead ?? 0, until);
+            await this.ctx.env.sleep(20000);
+            continue;
+          }
+          break;
+        }
+      }
+      if (hash) {
+        try {
+          receipt = await this.ctx.env.waitTx(this.client, hash);
+        } catch (err) {
+          thrown = String(err?.message ?? err).slice(0, 300);
+          timedOut = /timeout|retries|timed out|exceeded/i.test(thrown);
+        }
       }
       const out = receipt ? outcome(receipt) : { ok: false, known: false, status: timedOut ? "NOT_DECIDED_IN_TIME" : "thrown", detail: thrown };
       const failed = !timedOut && (Boolean(thrown) || (out.known && !out.ok));
