@@ -15,7 +15,8 @@ const fail = (m) => {
   throw new UserError(m);
 };
 
-export async function createSimEnv({ quirk = false } = {}) {
+export async function createSimEnv({ quirk = false, rateLimit = false } = {}) {
+  const readTimes = [];
   let clock = 1_800_000_000;
   const balances = new Map();
   const pending = [];
@@ -344,6 +345,12 @@ export async function createSimEnv({ quirk = false } = {}) {
         return hash;
       },
       async readContract({ address, functionName, args = [] }) {
+        if (rateLimit) {
+          // like Studionet: 30 read calls in any minute, then an error
+          while (readTimes.length && readTimes[0] < clock - 60) readTimes.shift();
+          if (readTimes.length >= 30) throw new Error("An unknown RPC error occurred.\n\nDetails: Rate limit exceeded: 30 requests per minute");
+          readTimes.push(clock);
+        }
         const K = contracts.get(address.toLowerCase());
         return exec(K, address.toLowerCase(), sender, functionName, args, 0n);
       },

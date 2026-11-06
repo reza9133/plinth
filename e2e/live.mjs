@@ -46,6 +46,7 @@ function parseArgs(argv) {
     else if (a === "--full") cfg.profile = "full";
     else if (a === "--simulate") cfg.simulate = true;
     else if (a === "--sim-quirk") cfg.quirk = true;
+    else if (a === "--sim-ratelimit") cfg.rateLimit = true;
     else if (a === "--address") cfg.address = argv[++i];
     else if (a === "--bid-secs") cfg.phases.bid = num();
     else if (a === "--review-secs") cfg.phases.review = num();
@@ -69,13 +70,32 @@ function parseMaybeJson(raw) {
   return raw;
 }
 
+// Studionet allows 30 read calls a minute, and two scenarios poll at once, so every read goes through one shared pace
+// (a read every 2.6 s at most), and a "rate limit" answer is waited out instead of counted as a failure.
+const READ_GAP_MS = 2600;
+async function pace(ctx) {
+  const at = Math.max(ctx.env.nowMs(), ctx.nextRead ?? 0);
+  ctx.nextRead = at + READ_GAP_MS;
+  const wait = at - ctx.env.nowMs();
+  if (wait > 0) await ctx.env.sleep(wait);
+}
+
 async function view(ctx, fn, args = [], tries = 4) {
   let last;
-  for (let i = 0; i < tries; i++) {
+  let limited = 0;
+  for (let i = 0; i < tries; ) {
+    await pace(ctx);
     try {
       return parseMaybeJson(await ctx.env.reader.readContract({ address: ctx.contract, functionName: fn, args }));
     } catch (err) {
       last = err;
+      if (/rate limit/i.test(String(err?.message ?? err)) && limited < 15) {
+        limited++;
+        ctx.nextRead = ctx.env.nowMs() + 20000; // everybody backs off, not only this read
+        await ctx.env.sleep(20000);
+        continue;
+      }
+      i++;
       await ctx.env.sleep(3000);
     }
   }
@@ -569,7 +589,7 @@ function specs(cfg) {
 
 async function main() {
   const cfg = parseArgs(process.argv.slice(2));
-  const env = cfg.simulate ? await (await import("./sim.mjs")).createSimEnv({ quirk: cfg.quirk }) : await (await import("./chain.mjs")).createLiveEnv();
+  const env = cfg.simulate ? await (await import("./sim.mjs")).createSimEnv({ quirk: cfg.quirk, rateLimit: cfg.rateLimit }) : await (await import("./chain.mjs")).createLiveEnv();
   const startedAt = new Date().toISOString();
   const rep = new Report({ mode: env.mode, profile: cfg.profile, rpc: env.rpc, contract: "(not deployed yet)", startedAt, phases: cfg.phases });
   const ctx = { env, rep, cfg, contract: null, exclusive: cfg.profile === "quick" && !cfg.address, exp: { slots: 0, rounds: 0, bids: 0, settled: 0, void: 0, takedowns: 0, reads: 0, volume: 0n, forfeits: 0n } };
@@ -611,6 +631,7 @@ async function main() {
             rep.aborted.push(err.message);
             rep.log(`ABORT ${err.message}`);
           } else {
+            ctx.crashed = true;
             rep.check(spec.id, "crash", "the scenario ran to the end", false, String(err?.stack ?? err).slice(0, 400));
           }
         }
@@ -622,7 +643,7 @@ async function main() {
     const solv1 = await view(ctx, "solvency", []);
     rep.check("RUN", "end.solvency", "solvency is balanced at the end of the run", solv1.balanced === true, JSON.stringify(solv1));
     rep.observe("RUN", "stats", stats1);
-    if (!cfg.address && rep.aborted.length === 0) {
+    if (!cfg.address && rep.aborted.length === 0 && !ctx.crashed) {
       const e = ctx.exp;
       const same = stats1.slots === e.slots && stats1.rounds === e.rounds && stats1.bids === e.bids && stats1.settled === e.settled && stats1.void === e.void && stats1.takedowns === e.takedowns && stats1.volume === String(e.volume) && stats1.forfeits === String(e.forfeits);
       rep.check("RUN", "end.stats", "stats() counts what happened (slots, rounds, bids, settled, void, takedowns, volume, forfeits)", same, `chain ${JSON.stringify(stats1)} expected ${JSON.stringify(e, bigintSafe)}`);

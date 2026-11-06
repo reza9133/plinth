@@ -11,6 +11,15 @@ export async function createLiveEnv() {
   const reader = sdk.createClient({ chain: studionet });
 
   async function rawBalance(address) {
+    for (let i = 0; i < 4; i++) {
+      const v = await rawBalanceOnce(address);
+      if (v !== null) return v;
+      await sleepReal(8000);
+    }
+    return null;
+  }
+
+  async function rawBalanceOnce(address) {
     try {
       if (typeof reader.getBalance === "function") return BigInt(await reader.getBalance({ address }));
     } catch {
