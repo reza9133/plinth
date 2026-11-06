@@ -208,8 +208,10 @@ bid would be accepted now), `commitment_for(slot, bidder, price, salt)`. Pages a
 * **The model can be wrong.** It can clear a message that breaks a rule (the curator's veto and `takedown` are the
   remedy) or refuse one that complies (appeal, then the curator). It can not change a price or a deposit.
 * **No link is ever fetched.** The link on a bid is displayed only; the gate judges the words of the message.
-* **Verified here with the local GenLayer test runner and linter, not on Studionet.** See the next section for what
-  was checked and what could only be checked live.
+* **One live run on Studionet so far.** The suite below runs locally with a mocked model. A live run against the
+  deployed contract (see `reports/live-report.md`, 2026-11-06) passed all its hard checks, but it is one run with a live
+  model whose answers vary: the gate read one compliant message as UNSURE and the curator path was used. Treat the
+  gate's reading quality as something to watch, not as settled.
 
 ## Tests
 
@@ -233,6 +235,21 @@ second price, a tie going to the later bid, forfeits or takedown proceeds sent t
 each phase boundary, an appeal that can clear, validators that accept a milder leader or a made-up reason, and so on).
 The suite caught every one; the first run missed one (forfeits after the curator changes the beneficiary), and a test
 for it was added.
+
+## Deployed instance (Studionet)
+
+| | |
+|---|---|
+| Contract | `0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d` |
+| Network | GenLayer Studionet |
+| Deployment transaction | `0x66236d9ed47953126f73e8ae3bb533f49fdf01b130accf1828ea658adc8b268b` |
+| Explorer | https://explorer-studio.genlayer.com/address/0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d |
+
+The same details are in `deployment.json` and `.env.example` (`PLINTH_ADDRESS`). To play a round against this instance
+instead of deploying a new one: `npm run live:deployed`, or `node e2e/live.mjs --quick --address 0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d`.
+The report of the run that deployed it is `reports/live-report.md`: 67 checks passed, 0 failed, 1 warning; the books
+(`solvency()`) were balanced at the end and the account balances moved exactly as the rules predict. In that run one
+call returned an RPC error page (the node answered with HTML instead of JSON) and the bid still ended up read and cleared.
 
 ## Deploy on Studionet
 

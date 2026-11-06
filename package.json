@@ -10,7 +10,8 @@
     "commit": "node scripts/commit.mjs",
     "live:quick": "node e2e/live.mjs --quick",
     "live": "node e2e/live.mjs --full",
-    "live:sim": "node e2e/live.mjs --quick --simulate"
+    "live:sim": "node e2e/live.mjs --quick --simulate",
+    "live:deployed": "node e2e/live.mjs --quick --address 0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d"
   },
   "dependencies": {
     "genlayer-js": "1.1.8",

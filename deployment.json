@@ -1,0 +1,7 @@
+{
+  "network": "studionet",
+  "contract": "0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d",
+  "deployTransaction": "0x66236d9ed47953126f73e8ae3bb533f49fdf01b130accf1828ea658adc8b268b",
+  "source": "contracts/plinth.py",
+  "liveReport": "reports/live-report.md"
+}
