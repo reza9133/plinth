@@ -230,9 +230,9 @@ bid would be accepted now), `commitment_for(slot, bidder, price, salt)`. Pages a
   remedy) or refuse one that complies (appeal, then the curator). It can not change a price or a deposit.
 * **No link is ever fetched.** The link on a bid is displayed only; the gate judges the words of the message.
 * **One live run on Studionet so far.** The suite below runs locally with a mocked model. A live run against the
-  deployed contract (see `reports/live-report.md`, 2026-11-06) passed all its hard checks, but it is one run with a live
-  model whose answers vary: the gate read one compliant message as UNSURE and the curator path was used. Treat the
-  gate's reading quality as something to watch, not as settled.
+  deployed contract (see `reports/live-report.md`, 2026-11-13) passed all its hard checks with no warnings, but it is one
+  run with a live model whose answers vary: the gate cleared all four compliant messages and refused the two it should
+  have, on the first read. Treat the gate's reading quality as something to watch, not as settled.
 
 ## Tests
 
@@ -264,23 +264,18 @@ for it was added.
 
 ## Deployed instance (Studionet)
 
-> The instance below and `reports/live-report.md` come from the version **before** the validator rule changed (a
-> validator used to accept a leader that was exactly one step stricter than its own read). Deploy the current
-> `contracts/plinth.py` (`npm run deploy`) and run `npm run live` again to get a report for this version; then replace the
-> address, transaction and report below.
-
 | | |
 |---|---|
-| Contract | `0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d` |
+| Contract | `0xcef1d3Fc0638070C097bbceDDD0d362BFD09912A` |
 | Network | GenLayer Studionet |
-| Deployment transaction | `0x66236d9ed47953126f73e8ae3bb533f49fdf01b130accf1828ea658adc8b268b` |
-| Explorer | https://explorer-studio.genlayer.com/address/0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d |
+| Deployment transaction | `0x3d73fa709fb549d839eff1c8e7e074136977b27c3d0d240d18606322725f50a9` |
+| Explorer | https://explorer-studio.genlayer.com/address/0xcef1d3Fc0638070C097bbceDDD0d362BFD09912A |
 
 The same details are in `deployment.json` and `.env.example` (`PLINTH_ADDRESS`). To play a round against this instance
-instead of deploying a new one: `npm run live:deployed`, or `node e2e/live.mjs --quick --address 0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d`.
-The report of the run that deployed it is `reports/live-report.md`: 67 checks passed, 0 failed, 1 warning; the books
-(`solvency()`) were balanced at the end and the account balances moved exactly as the rules predict. In that run one
-call returned an RPC error page (the node answered with HTML instead of JSON) and the bid still ended up read and cleared.
+instead of deploying a new one: `npm run live:deployed`, or `node e2e/live.mjs --quick --address 0xcef1d3Fc0638070C097bbceDDD0d362BFD09912A`.
+The report of the run that deployed it is `reports/live-report.md`: 67 checks passed, 0 failed, 0 warnings; the books
+(`solvency()`) were balanced at the end and the account balances moved exactly as the rules predict. It was the full
+profile (two slots, 33 transactions, about 18 minutes).
 
 ## Deploy on Studionet
 
