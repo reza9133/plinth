@@ -3,8 +3,8 @@
     "mode": "live",
     "profile": "full",
     "rpc": "https://studio.genlayer.com/api",
-    "contract": "0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d",
-    "startedAt": "2026-11-06T08:05:05.276Z",
+    "contract": "0xcef1d3Fc0638070C097bbceDDD0d362BFD09912A",
+    "startedAt": "2026-11-13T14:09:36.657Z",
     "phases": {
       "bid": 180,
       "review": 480,
@@ -16,10 +16,10 @@
   "counts": {
     "PASS": 67,
     "FAIL": 0,
-    "WARN": 1,
+    "WARN": 0,
     "SKIP": 0
   },
-  "seconds": 1092,
+  "seconds": 1099,
   "checks": [
     {
       "scenario": "RUN",
@@ -67,7 +67,7 @@
       "title": "commit.mjs and the contract compute the same commitment",
       "kind": "hard",
       "status": "PASS",
-      "detail": "db786591369ca7311049189f3ff003526d1e54b2ac92121c3eab50f4068745cd vs db786591369ca7311049189f3ff003526d1e54b2ac92121c3eab50f4068745cd"
+      "detail": "96615a44bc936cd79a885634b87ce17242849767c01124b2d09329394e71d55e vs 96615a44bc936cd79a885634b87ce17242849767c01124b2d09329394e71d55e"
     },
     {
       "scenario": "S1",
@@ -83,7 +83,7 @@
       "title": "commit.mjs and the contract compute the same commitment",
       "kind": "hard",
       "status": "PASS",
-      "detail": "1da97190f002e2f3383f2d7e43f76b93d2d3a7c82f22baddc0b6a70187b88153 vs 1da97190f002e2f3383f2d7e43f76b93d2d3a7c82f22baddc0b6a70187b88153"
+      "detail": "1a02de8fa054e72d4e98d1710b5a391d363a0a37e2cbec3af93b057479c9a196 vs 1a02de8fa054e72d4e98d1710b5a391d363a0a37e2cbec3af93b057479c9a196"
     },
     {
       "scenario": "S2",
@@ -234,8 +234,8 @@
       "id": "gate.A.model",
       "title": "A: the live model reads the message as CLEARED",
       "kind": "soft",
-      "status": "WARN",
-      "detail": "got UNSURE [0,0,1]"
+      "status": "PASS",
+      "detail": "got CLEARED [0,0,0]"
     },
     {
       "scenario": "S1",
@@ -292,14 +292,6 @@
       "kind": "hard",
       "status": "PASS",
       "detail": "status ACCEPTED / ERROR"
-    },
-    {
-      "scenario": "S1",
-      "id": "clear.A",
-      "title": "the curator can clear an UNSURE bid (A)",
-      "kind": "hard",
-      "status": "PASS",
-      "detail": "gate CLEARED"
     },
     {
       "scenario": "S1",
@@ -411,7 +403,23 @@
       "title": "the display runs for `hold` seconds from the settle",
       "kind": "hard",
       "status": "PASS",
-      "detail": "until 1793953331 settled 1793953181"
+      "detail": "until 1794580006 settled 1794579856"
+    },
+    {
+      "scenario": "S2",
+      "id": "settle.current",
+      "title": "current() shows the winner's message",
+      "kind": "hard",
+      "status": "PASS",
+      "detail": "{\"occupied\":true,\"slot\":0,\"round\":0,\"bid\":1,\"bidder\":\"0xdB3996C9037725219e4BA23D4e2912D732828AC0\",\"creative\":\"Quillbench, an open source benchmark runner for small command line tools.\",\"link\":\"\",\"price\":\"10000000000000000\",\"from\":1794579856,\"until\":1794580006}"
+    },
+    {
+      "scenario": "S2",
+      "id": "solvency.settle",
+      "title": "solvency is balanced after the settle",
+      "kind": "hard",
+      "status": "PASS",
+      "detail": "{\"deposited\":\"700000000000000000\",\"paid\":\"650000000000000000\",\"deposits_held\":\"0\",\"escrow_held\":\"50000000000000000\",\"balanced\":true}"
     },
     {
       "scenario": "S1",
@@ -420,14 +428,6 @@
       "kind": "hard",
       "status": "PASS",
       "detail": ""
-    },
-    {
-      "scenario": "S2",
-      "id": "settle.current",
-      "title": "current() shows the winner's message",
-      "kind": "hard",
-      "status": "PASS",
-      "detail": "{\"occupied\":true,\"slot\":0,\"round\":0,\"bid\":1,\"bidder\":\"0xb4F06d2F28e70eb09ef9A8ba5a544B83bc959f12\",\"creative\":\"Quillbench, an open source benchmark runner for small command line tools.\",\"link\":\"\",\"price\":\"10000000000000000\",\"from\":1793953181,\"until\":1793953331}"
     },
     {
       "scenario": "S1",
@@ -459,15 +459,7 @@
       "title": "the display runs for `hold` seconds from the settle",
       "kind": "hard",
       "status": "PASS",
-      "detail": "until 1793953337 settled 1793953187"
-    },
-    {
-      "scenario": "S2",
-      "id": "solvency.settle",
-      "title": "solvency is balanced after the settle",
-      "kind": "hard",
-      "status": "PASS",
-      "detail": "{\"deposited\":\"700000000000000000\",\"paid\":\"650000000000000000\",\"deposits_held\":\"0\",\"escrow_held\":\"50000000000000000\",\"balanced\":true}"
+      "detail": "until 1794580014 settled 1794579864"
     },
     {
       "scenario": "S1",
@@ -475,7 +467,7 @@
       "title": "current() shows the winner's message",
       "kind": "hard",
       "status": "PASS",
-      "detail": "{\"occupied\":true,\"slot\":1,\"round\":1,\"bid\":3,\"bidder\":\"0x7F509Bf286505D49a5f41442E128297154f67489\",\"creative\":\"Ship faster with Brindle, an open source build tool for small teams.\",\"link\":\"\",\"price\":\"40000000000000000\",\"from\":1793953187,\"until\":1793953337}"
+      "detail": "{\"occupied\":true,\"slot\":1,\"round\":1,\"bid\":3,\"bidder\":\"0x9E15a871DA0D5967cFac598f2307e4185dC80aF2\",\"creative\":\"Ship faster with Brindle, an open source build tool for small teams.\",\"link\":\"\",\"price\":\"40000000000000000\",\"from\":1794579864,\"until\":1794580014}"
     },
     {
       "scenario": "S1",
@@ -499,7 +491,7 @@
       "title": "takedown ends the display now and empties the escrow",
       "kind": "hard",
       "status": "PASS",
-      "detail": "stage TAKEN_DOWN escrow 0 left 105s "
+      "detail": "stage TAKEN_DOWN escrow 0 left 110s "
     },
     {
       "scenario": "S2",
@@ -555,7 +547,7 @@
       "title": "stats() counts what happened (slots, rounds, bids, settled, void, takedowns, volume, forfeits)",
       "kind": "hard",
       "status": "PASS",
-      "detail": "chain {\"slots\":2,\"rounds\":2,\"bids\":7,\"settled\":2,\"void\":0,\"takedowns\":1,\"reads\":7,\"volume\":\"43000000000000000\",\"forfeits\":\"20000000000000000\",\"deposited\":\"700000000000000000\",\"paid\":\"700000000000000000\"} expected {\"slots\":2,\"rounds\":2,\"bids\":7,\"settled\":2,\"void\":0,\"takedowns\":1,\"reads\":6,\"volume\":\"43000000000000000\",\"forfeits\":\"20000000000000000\"}"
+      "detail": "chain {\"slots\":2,\"rounds\":2,\"bids\":7,\"settled\":2,\"void\":0,\"takedowns\":1,\"reads\":7,\"volume\":\"42666666666666667\",\"forfeits\":\"20000000000000000\",\"deposited\":\"700000000000000000\",\"paid\":\"700000000000000000\"} expected {\"slots\":2,\"rounds\":2,\"bids\":7,\"settled\":2,\"void\":0,\"takedowns\":1,\"reads\":6,\"volume\":\"42666666666666667\",\"forfeits\":\"20000000000000000\"}"
     },
     {
       "scenario": "RUN",
@@ -574,14 +566,14 @@
         "role": "A",
         "bid": 3,
         "message": "Ship faster with Brindle, an open source build tool for small teams.",
-        "gate": "UNSURE",
+        "gate": "CLEARED",
         "by": "AI",
         "marks": [
           0,
           0,
-          1
+          0
         ],
-        "reason": "Message is about open source developer tools, makes no profit promises, but potentially imitates the style of other tech product announcements",
+        "reason": "The message promotes an open source developer tool, promises no financial returns, and shows no imitation of another brand or person.",
         "kind": "OK",
         "tries": 0
       }
@@ -600,7 +592,7 @@
           0,
           0
         ],
-        "reason": "It describes an open-source Rust fuzzing tool without promising returns or imitating any brand or person.",
+        "reason": "The message describes an open source developer tool, promises no financial returns, and does not imitate another brand or person.",
         "kind": "OK",
         "tries": 0
       }
@@ -619,7 +611,7 @@
           2,
           0
         ],
-        "reason": "The message is about a token and guaranteed returns, and it does not imitate another brand or person.",
+        "reason": "The message is not about developer tools or open source, guarantees investment returns, and does not imitate any identifiable brand or person.",
         "kind": "OK",
         "tries": 0
       }
@@ -653,7 +645,7 @@
           0,
           0
         ],
-        "reason": "It discusses an open source developer tool, makes no profit claims, and does not imitate any brand or person.",
+        "reason": "The message complies with all three rules.",
         "kind": "OK",
         "tries": 0
       }
@@ -672,7 +664,7 @@
           0,
           0
         ],
-        "reason": "It is about an open source developer tool, makes no profit claims, and does not imitate any brand or person.",
+        "reason": "Message describes an open-source dev tool with no promises or imitation.",
         "kind": "OK",
         "tries": 0
       }
@@ -689,17 +681,17 @@
           2,
           0
         ],
-        "reason": "The message promotes a token rather than developer tools or open source, guarantees returns and no loss, and does not imitate any brand or person."
+        "reason": "The message is not about developer tools or open source, explicitly guarantees returns, and does not imitate a brand or person."
       }
     },
     {
       "scenario": "S2",
       "what": "takedown",
       "data": {
-        "seconds_left": "105",
+        "seconds_left": "110",
         "hold": 150,
-        "refund": "0.007 GEN",
-        "earned": "0.003 GEN"
+        "refund": "0.007333333333333333 GEN",
+        "earned": "0.002666666666666667 GEN"
       }
     },
     {
@@ -713,7 +705,7 @@
         "void": 0,
         "takedowns": 1,
         "reads": 7,
-        "volume": "43000000000000000",
+        "volume": "42666666666666667",
         "forfeits": "20000000000000000",
         "deposited": "700000000000000000",
         "paid": "700000000000000000"
@@ -734,9 +726,9 @@
       "scenario": "S2",
       "who": "S2-F",
       "before": "1000000000000000000",
-      "after": "997000000000000000",
-      "delta": "-3000000000000000",
-      "expected": "-3000000000000000",
+      "after": "997333333333333333",
+      "delta": "-2666666666666667",
+      "expected": "-2666666666666667",
       "match": "yes"
     },
     {
@@ -752,9 +744,9 @@
       "scenario": "S2",
       "who": "S2-payee",
       "before": "0",
-      "after": "23000000000000000",
-      "delta": "23000000000000000",
-      "expected": "23000000000000000",
+      "after": "22666666666666667",
+      "delta": "22666666666666667",
+      "expected": "22666666666666667",
       "match": "yes"
     },
     {
@@ -809,8 +801,8 @@
       "actor": "S2-curator",
       "fn": "create_slot",
       "label": "create_slot",
-      "hash": "0x5ac2a916572e0efac5163d5723369d547bbbb99cdc48348a1f7d5184a271f063",
-      "ms": 7138,
+      "hash": "0x7ed7d73706a1dd5f18a11e73388c5245be7cf30465cf2d78a09b309eea42bb09",
+      "ms": 6990,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -822,8 +814,8 @@
       "actor": "S1-curator",
       "fn": "create_slot",
       "label": "create_slot",
-      "hash": "0x97eefa81b1e53afbaa2d412f5622a09942d0a6ce49fb6ada00ed2ea4571e1a6b",
-      "ms": 10122,
+      "hash": "0x63d44db71aab965ab5b07d3fcbeaa7515b564abb513e26f4f856f67012ca6b5f",
+      "ms": 10152,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -835,8 +827,8 @@
       "actor": "S2-E",
       "fn": "bid",
       "label": "bid E",
-      "hash": "0x493d5c2272a0fce386bffba275c1e00f2c8f89a2be8960c80b522ae2997a3f84",
-      "ms": 7173,
+      "hash": "0xe2dc297c5b533dd7ccedb1920253f2732c22f715e306f3a352891f3c6b3798b8",
+      "ms": 4319,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -848,8 +840,8 @@
       "actor": "S2-F",
       "fn": "bid",
       "label": "bid F",
-      "hash": "0x6d844107d9350373d2ee3d802002ed8ef6583fc66c1d7b58222bf533fa458a73",
-      "ms": 10179,
+      "hash": "0xc3a5b617a6b55c2da2fde5ad57eb4567d4a25f159de7c8fd7141c8deaf781840",
+      "ms": 10119,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -861,8 +853,8 @@
       "actor": "S2-G",
       "fn": "bid",
       "label": "bid G",
-      "hash": "0x721952a835493ebc5ac8e6171be2993996fcbcd056a39d036f89f2f9abb1e5d3",
-      "ms": 13152,
+      "hash": "0x8f5c9f1af557d29d89f4acc999f161056ba6409fbbb498eeadc30db22a3d4804",
+      "ms": 13258,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -874,8 +866,8 @@
       "actor": "S1-A",
       "fn": "bid",
       "label": "bid A",
-      "hash": "0x507ca57416b20a24db4e6148310b70857f476698f7d48555404721ab12d8f06b",
-      "ms": 8902,
+      "hash": "0x2b1027f7a7816cfab15d4feb5182d5aac284a2aa98cf2f83f1759af8f2328a9d",
+      "ms": 8920,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -887,8 +879,8 @@
       "actor": "S1-B",
       "fn": "bid",
       "label": "bid B",
-      "hash": "0xfc1295f1a92d689b8fee98628578318d382be1592c4bc484637bbf9c7d031174",
-      "ms": 11880,
+      "hash": "0x62a388e725fa4bba0ed06a12309b4c59d6f1cca5b26187d079ada98dc2468551",
+      "ms": 12040,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -900,8 +892,8 @@
       "actor": "S1-C",
       "fn": "bid",
       "label": "bid C",
-      "hash": "0xde40bcc26bd96dc5aab8bfa08337bb280357b68f2094b792bfe565fa361e453d",
-      "ms": 14993,
+      "hash": "0xe39fec481b8801bc37724fb02735c7324ff29525424684fbd29744f7c2b28b14",
+      "ms": 18174,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -913,8 +905,8 @@
       "actor": "S1-D",
       "fn": "bid",
       "label": "bid D",
-      "hash": "0x3f513f02ef43ceddc4b47beb1d6df64bf93c88599f9d16ac62fd3038d25637e5",
-      "ms": 41389,
+      "hash": "0xa4ced028281b94be43d744011331633f5bd2361a934e39a8efba57452b65b4e8",
+      "ms": 44496,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -926,34 +918,34 @@
       "actor": "S1-x",
       "fn": "bid",
       "label": "bid with a short deposit (must be refused)",
-      "hash": "0x973095e332ed72500fa650d675e28410e3f03b87d5025e0f1a60a7ad1d329a83",
-      "ms": 47298,
+      "hash": "0x42cff49f1366785592b5af99684c71dae41e7a8cd4e507389090f120f3e01c15",
+      "ms": 47150,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0xcab45E3fe9cC9592B5C378E47734E022b7Df80c9\",\"primary_model\":{\"model\":\"policy:prd-minimax\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"minimax-m3\"],[\"family_eq\",\"minimax-m2.7\"],[\"family_eq\",\"gpt-5.4\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"minimax-m3\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"minimax-m2.7\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x63d72fE364368491E62a42B9C73c317Ce1ca8434\""
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x736d834361E9b2BeB24441905252FC7421818Fb1\",\"primary_model\":{\"model\":\"openai/gpt-6.1-sol\",\"config\":{\"models\":[\"openai/gpt-6.1-sol\",\"anthropic/claude-sonnet-4.6\",\"google/gemini-3.5-flash-lite\"]},\"plugin\":\"openai-compatible\",\"provider\":\"openrouter\",\"plugin_config\":{\"api_url\":\"https://openrouter.ai/api\",\"api_key_env_var\":\"OPENROUTERAPIKEY\"},\"fallback_validator\":\"0x003192Feb616fA23158e1Ce232B4662458EebC28\"},\"secondary_model\":{\"model\":\"policy:prd-minimax-m3\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"minimax-m3\"],[\"family_eq\",\"minimax-m3.1-flash\"],[\"family_eq\",\"gpt-6.1-sol\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"minimax-m3\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"minimax-m3.1-flash\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"succe"
     },
     {
       "scenario": "S1",
       "actor": "S1-curator",
       "fn": "bid",
       "label": "bid by the curator (must be refused)",
-      "hash": "0xae3f5e1bede09e571549678c8e223fc63258191715d67e3e14dd64d13ef6058b",
-      "ms": 50323,
+      "hash": "0x75a068bfccd92dc20967a0830dbeae879732abc8f4925aaa30cf52b40111d333",
+      "ms": 53433,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x378aED3bA912Ce77C3C66155961A7e61C2fE8F3B\",\"primary_model\":{\"model\":\"policy:prd-kimi\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"kimi-k2.7-code\"],[\"family_eq\",\"claude-sonnet-4-6\"],[\"family_eq\",\"gpt-5.4\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"kimi-k2.7-code\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"claude-sonnet-4-6\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x007d6451555Df7765c707284F8"
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x93bC68565cA1E41EA27D30192cB900B497dC7A04\",\"primary_model\":{\"model\":\"policy:prd-claude-sonnet-4-6\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"claude-sonnet-4-6\"],[\"family_eq\",\"gpt-6.1-sol\"],[\"family_eq\",\"gemini-3.5-flash-lite\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"claude-sonnet-4-6\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gemini-3.5-flash-lite\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_valid"
     },
     {
       "scenario": "S2",
       "actor": "S2-curator",
       "fn": "veto",
       "label": "veto G",
-      "hash": "0xdb3eae1e74cd96b09c1b2b748a6b09140ffce6e6239453339fabe782ebc65a4f",
-      "ms": 10240,
+      "hash": "0xc0849b9f3d4fef9c5319e6d06f7d4cc254db5afc91e9cf0b8c6bc267aecb5cb3",
+      "ms": 10489,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -965,8 +957,8 @@
       "actor": "S1-A",
       "fn": "screen",
       "label": "screen A",
-      "hash": "0x2093917b20840ad3c2221dd88df6caa625c87943d519f966ed19e3b25fb9da33",
-      "ms": 13290,
+      "hash": "0xd5a4fab091814c9f1350181bc9338c4dae8ba36cc3365f49aafeb40adf92321f",
+      "ms": 16456,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -978,8 +970,8 @@
       "actor": "S1-B",
       "fn": "screen",
       "label": "screen B",
-      "hash": "0x49269174800248346541dc178df69e016c15e5231b70f204573fec7ee8f61624",
-      "ms": 22496,
+      "hash": "0x6312e89aad8491e3d4e97efa673744ee7ae88344b6dff82622e4d22434faf600",
+      "ms": 38098,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -991,8 +983,8 @@
       "actor": "S1-C",
       "fn": "screen",
       "label": "screen C",
-      "hash": "0xb8d7824d91faf997faae457ba5d3b34ea535123613b05c16dfe7336f227f9151",
-      "ms": 28773,
+      "hash": "0xadfe10f1493edfe3763f94c8a2f94e77cf09eb58ec3f81ebed15c3ae1b2fefe2",
+      "ms": 75750,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1004,8 +996,8 @@
       "actor": "S1-D",
       "fn": "screen",
       "label": "screen D",
-      "hash": "0xd9de417e6933079d5c7167d7dfb992b3376b3ef9553fa93f1884f445fe33d83e",
-      "ms": 31651,
+      "hash": "0x6957d2db0e370d38542cc00440b4fdb90c027f39360e2034698986fa40bb68b2",
+      "ms": 84651,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1017,21 +1009,21 @@
       "actor": "S2-E",
       "fn": "screen",
       "label": "screen E",
-      "hash": "0x8db4e76161d305c5d416126bd24ba788e66af6fae4b93c50b4ad0133afe88d7e",
-      "ms": 47516,
-      "failed": true,
-      "ok": false,
+      "hash": "0xd2fa4acc525009f7b729c21d9706c53ba067e4a6a8d4f92cb672d052e327314c",
+      "ms": 97907,
+      "failed": false,
+      "ok": true,
       "unknown": false,
-      "status": "thrown",
-      "error": "An unknown RPC error occurred.\n\nDetails: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON\nVersion: viem@2.57.13"
+      "status": "ACCEPTED / SUCCESS",
+      "error": null
     },
     {
       "scenario": "S2",
       "actor": "S2-F",
       "fn": "screen",
       "label": "screen F",
-      "hash": "0xdaaf10185cebb89f9879ee670089711f3a11db523a2176d5ae370b8055464c7a",
-      "ms": 53591,
+      "hash": "0x7153fc5645fab98eba18fd96769a7e4b5fe5de43ae25903e821ec18b9a9575ea",
+      "ms": 119994,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1043,8 +1035,8 @@
       "actor": "S1-C",
       "fn": "appeal",
       "label": "appeal C (a refusal stands or becomes UNSURE)",
-      "hash": "0xbe14d8ab3e43abf04cb2dc6348f8c41744268486032241613a5c3741ebdd1bec",
-      "ms": 32196,
+      "hash": "0xe60c07c51d494d26788d4ff7f51738125eaeaa1c3e55d53aaa53a88f05470cf2",
+      "ms": 69270,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1056,47 +1048,34 @@
       "actor": "S1-C",
       "fn": "appeal",
       "label": "second appeal by C (must be refused)",
-      "hash": "0x104f2dffe03999e064bc8ac73eba3c8f579ffac1b7817728f0c0302862f6fa2e",
-      "ms": 7117,
+      "hash": "0x708d16516ca8daa566fe50116073d8ecb9e40eb2d1e817793123efca5bdd17a9",
+      "ms": 3922,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x4619C8420D50c9dE477DB2CBb7b4863A041688CB\",\"primary_model\":{\"model\":\"policy:prd-glm\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"glm-5.1\"],[\"family_eq\",\"gpt-oss-120b\"],[\"family_eq\",\"gpt-5.4\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"glm-5.1\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x007d6451555Df7765c707284F844137927aE4e5E\"},\"seconda"
-    },
-    {
-      "scenario": "S1",
-      "actor": "S1-curator",
-      "fn": "clear",
-      "label": "clear A",
-      "hash": "0x8aeca03b8f51e2d42d1a92f8dcf0213614278f7e0cdbb1845ce3bfa95ce0d486",
-      "ms": 6992,
-      "failed": false,
-      "ok": true,
-      "unknown": false,
-      "status": "ACCEPTED / SUCCESS",
-      "error": null
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x003192Feb616fA23158e1Ce232B4662458EebC28\",\"primary_model\":{\"model\":\"policy:prd-minimax-m3\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"minimax-m3\"],[\"family_eq\",\"minimax-m3.1-flash\"],[\"family_eq\",\"gpt-6.1-sol\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"minimax-m3\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"minimax-m3.1-flash\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0xb6f925c91960bcB8a2"
     },
     {
       "scenario": "S1",
       "actor": "S1-A",
       "fn": "reveal",
       "label": "reveal by A during the review phase (must be refused)",
-      "hash": "0xca716eb91a593e64a58fd198c86f7a3e053eb677901e92be8f0a8dbdb20bcec0",
-      "ms": 3930,
+      "hash": "0xb42f6e02ae1f4ea21e94d97e514b195a6a43ebdb2c991641a94e1aeb369547df",
+      "ms": 6992,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0xF7D08d12dB37D3e02D1833b5cB7e56B07F114186\",\"primary_model\":{\"model\":\"policy:prd-gemini\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"gemini-3-flash-preview\"],[\"family_eq\",\"gpt-oss-120b\"],[\"family_eq\",\"gpt-5.4\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"gemini-3-flash-preview\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x007d6451555Df7765c"
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0xad5793D7AA725ccdE8Da6fAF3400de8067559D8c\",\"primary_model\":{\"model\":\"policy:prd-mistral-large-2512\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"mistral-large-2512\"],[\"family_eq\",\"gpt-oss-120b\"],[\"family_eq\",\"gpt-6.1-sol\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"mistral-large-2512\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x736d83"
     },
     {
       "scenario": "S2",
       "actor": "S2-F",
       "fn": "reveal",
       "label": "reveal F",
-      "hash": "0x29d0adea95207803d9ab6532a1ffa42ed5d83f641aa45ace4b726085a1e6f8e7",
-      "ms": 7155,
+      "hash": "0x4b28fce8dc77fa61f2b2e607b794ee7154f676b2ee8aa85fdc1b74bc02273c26",
+      "ms": 7111,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1108,47 +1087,47 @@
       "actor": "S1-C",
       "fn": "reveal",
       "label": "reveal by C (not cleared, must be refused)",
-      "hash": "0xab4ed1f96690445cb6343120de400c51bc5242b078a631228a210c92bb7f4d68",
-      "ms": 7154,
+      "hash": "0x78ffc97af6fba3388881ec0d676ca801c7b405dea077df4d45b2519fb7353def",
+      "ms": 7103,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0xCe0B66448435cA53665C954705Abd753515594Cf\",\"primary_model\":{\"model\":\"policy:prd-qwen\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"qwen3-coder\"],[\"family_eq\",\"qwen3.6-27b\"],[\"family_eq\",\"gpt-5.4\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"qwen3-coder\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"qwen3.6-27b\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x007d6451555Df7765c707284F844137927aE4e5E\"},\""
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0xc3107801f55D209f667101272bc2905Ad83ba792\",\"primary_model\":{\"model\":\"policy:prd-gpt-6.1-sol\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"gpt-6.1-sol\"],[\"family_eq\",\"gemini-3.5-flash-lite\"],[\"family_eq\",\"gpt-oss-120b\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gemini-3.5-flash-lite\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x736d834"
     },
     {
       "scenario": "S1",
       "actor": "S1-D",
       "fn": "reveal",
       "label": "reveal by D (not cleared, must be refused)",
-      "hash": "0x08c259552a9f86c9a32f3cf0644f00cf4afd82cfd7c29052b9c01ef52c34b3a0",
-      "ms": 10245,
+      "hash": "0x048f034570a54107f6d8c6c932b0a924f443c652031d99452a2fc813a04a65bc",
+      "ms": 10114,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x007d6451555Df7765c707284F844137927aE4e5E\",\"primary_model\":{\"model\":\"anthropic/claude-sonnet-4.6\",\"config\":{\"models\":[\"anthropic/claude-sonnet-4.6\",\"openai/gpt-5.4\",\"google/gemini-3-flash-preview\"]},\"plugin\":\"openai-compatible\",\"provider\":\"openrouter\",\"plugin_config\":{\"api_url\":\"https://openrouter.ai/api\",\"api_key_env_var\":\"OPENROUTERAPIKEY\"},\"fallback_validator\":\"0xe06A34A1eBd398AF3399d08593B8c3C433CdD947\"},\"secondary_model\":{\"model\":\"policy:prd-gpt-5-4\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"gpt-5.4\"],[\"family_eq\",\"gemini-3-flash-preview\"],[\"family_eq\",\"gpt-oss-120b\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gemini-3-flash-preview\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\""
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x42509F1b311C37DD50297fe16C283F392C7cD3E7\",\"primary_model\":{\"model\":\"policy:prd-kimi-k2.7-code\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"kimi-k2.7-code\"],[\"family_eq\",\"claude-sonnet-4-6\"],[\"family_eq\",\"gpt-6.1-sol\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"kimi-k2.7-code\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"claude-sonnet-4-6\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x736d8343"
     },
     {
       "scenario": "S1",
       "actor": "S1-A",
       "fn": "reveal",
       "label": "reveal by A with the wrong salt (must be refused)",
-      "hash": "0x6fd7c7316f7a43bf99629f7594fd5fd86a83ec87d07797c1d14e90dfdfb027df",
-      "ms": 13071,
+      "hash": "0x7b89297e14e3af88d3ac7f99dd1b71c3dbd32c5353e8d1f2732d65392047f66b",
+      "ms": 13092,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0xF7D08d12dB37D3e02D1833b5cB7e56B07F114186\",\"primary_model\":{\"model\":\"policy:prd-gemini\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"gemini-3-flash-preview\"],[\"family_eq\",\"gpt-oss-120b\"],[\"family_eq\",\"gpt-5.4\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"gemini-3-flash-preview\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0xb04cdDC4a6Ff6A0aDF"
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x736d834361E9b2BeB24441905252FC7421818Fb1\",\"primary_model\":{\"model\":\"openai/gpt-6.1-sol\",\"config\":{\"models\":[\"openai/gpt-6.1-sol\",\"anthropic/claude-sonnet-4.6\",\"google/gemini-3.5-flash-lite\"]},\"plugin\":\"openai-compatible\",\"provider\":\"openrouter\",\"plugin_config\":{\"api_url\":\"https://openrouter.ai/api\",\"api_key_env_var\":\"OPENROUTERAPIKEY\"},\"fallback_validator\":\"0x003192Feb616fA23158e1Ce232B4662458EebC28\"},\"secondary_model\":{\"model\":\"policy:prd-minimax-m3\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"minimax-m3\"],[\"family_eq\",\"minimax-m3.1-flash\"],[\"family_eq\",\"gpt-6.1-sol\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"minimax-m3\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"minimax-m3.1-flash\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"succe"
     },
     {
       "scenario": "S1",
       "actor": "S1-A",
       "fn": "reveal",
       "label": "reveal A",
-      "hash": "0x853d8931da510517b6d6afbdf67046bad4b0427458bafa6f82d3825d28b50517",
-      "ms": 7121,
+      "hash": "0x9fe99ad8f6ecaf30c5a2c6c5f9f0614545ba863b47e13412fbfb8cb9c129ad96",
+      "ms": 7161,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1160,8 +1139,8 @@
       "actor": "S1-B",
       "fn": "reveal",
       "label": "reveal B",
-      "hash": "0x8b664ae0b641b5f4eeb73b4dfa2f749a5da9abe12c3de2d549612ca47a10f411",
-      "ms": 10065,
+      "hash": "0xe06785fea9a88e7fc9f285fc28bf6df38981fe04f5c50c0587d12d26813b2f7c",
+      "ms": 10130,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1173,21 +1152,21 @@
       "actor": "S1-anyone",
       "fn": "settle",
       "label": "settle during the reveal phase (must be refused)",
-      "hash": "0x6f4ca7fd27fca6e50f6d0bb50647c694353f708e60c1c8fa35b3ac02b6a78a4b",
-      "ms": 10125,
+      "hash": "0xc9f61945ef7027b9e5598bb5bd92ecf7bcafd0fb8229c1eef34d946588a58325",
+      "ms": 13223,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x045291B293B9D68969c18B6637A8258038cf787A\",\"primary_model\":{\"model\":\"policy:prd-gpt-5-4\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"gpt-5.4\"],[\"family_eq\",\"gemini-3-flash-preview\"],[\"family_eq\",\"gpt-oss-120b\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gemini-3-flash-preview\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0xb04cdDC4a6Ff6A0aD"
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0xb6f925c91960bcB8a29C2c2108cC1ad42D519475\",\"primary_model\":{\"model\":\"anthropic/claude-sonnet-4.6\",\"config\":{\"models\":[\"anthropic/claude-sonnet-4.6\",\"openai/gpt-6.1-sol\",\"google/gemini-3.5-flash-lite\"]},\"plugin\":\"openai-compatible\",\"provider\":\"openrouter\",\"plugin_config\":{\"api_url\":\"https://openrouter.ai/api\",\"api_key_env_var\":\"OPENROUTERAPIKEY\"},\"fallback_validator\":\"0xc6425717F235a81a2D456c65231afB3d62A5fcdD\"},\"secondary_model\":{\"model\":\"policy:prd-glm-5.3\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"glm-5.3\"],[\"family_eq\",\"gpt-oss-120b\"],[\"family_eq\",\"gpt-6.1-sol\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"glm-5.3\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],["
     },
     {
       "scenario": "S2",
       "actor": "S2-anyone",
       "fn": "settle",
       "label": "settle",
-      "hash": "0xbc49615866613a35fdcd57ce8045050ceee85d1c9dd25f84604c9fb8419771a7",
-      "ms": 10197,
+      "hash": "0xc393ae4e60958c302015c574b75d1267eeb80c8370753c7b39d9b6478e8ba80f",
+      "ms": 7392,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1199,8 +1178,8 @@
       "actor": "S1-anyone",
       "fn": "settle",
       "label": "settle",
-      "hash": "0xa6b9b9c0790ab40ffaa27a05ac56fa796228ed1341e5892c0c9f5dac8552a52d",
-      "ms": 7236,
+      "hash": "0xa3be1190a79c211bb8835ee624d817c1892edee0f25fe3a220a488fd5ea40d46",
+      "ms": 7267,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1212,21 +1191,21 @@
       "actor": "S1-anyone",
       "fn": "release",
       "label": "release while the winner is on display (must be refused)",
-      "hash": "0x7e2062bd55cd0c7aee85d37340dbe9c54c536bcfe7c12175adee6b6488c81b2b",
-      "ms": 6958,
+      "hash": "0x2062299cfb9bbf720f96ac39dea9635cfe48ad112e26181016a19cce67c9514d",
+      "ms": 7159,
       "failed": true,
       "ok": false,
       "unknown": false,
       "status": "ACCEPTED / ERROR",
-      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0x4619C8420D50c9dE477DB2CBb7b4863A041688CB\",\"primary_model\":{\"model\":\"policy:prd-glm\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"glm-5.1\"],[\"family_eq\",\"gpt-oss-120b\"],[\"family_eq\",\"gpt-5.4\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"glm-5.1\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-5.4\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x63d72fE364368491E62a42B9C73c317Ce1ca8434\"},\"seconda"
+      "error": "{\"execution_result\":\"ERROR\",\"genvm_result\":{\"stderr\":\"\",\"stdout\":\"\",\"raw_error\":null,\"error_code\":null,\"error_description\":null},\"mode\":\"leader\",\"vote\":null,\"node_config\":{\"stake\":100,\"address\":\"0xAF618472AEfF108f7Af2E6f9748794C57A2A11b5\",\"primary_model\":{\"model\":\"policy:prd-gpt-6.1-sol\",\"config\":{\"policy_ir\":[\"policy\",[\"and\",[\"meets_req\"],[\"not\",[\"is\",\"disabled\"]],[\"cmp\",\"success_rate\",\"ge\",0.2],[\"or\",[\"family_eq\",\"gpt-6.1-sol\"],[\"family_eq\",\"gemini-3.5-flash-lite\"],[\"family_eq\",\"gpt-oss-120b\"]]],[\"add\",[\"scale\",100,[\"gate\",[\"family_eq\",\"gpt-6.1-sol\"],[\"lit\",1]]],[\"scale\",10,[\"gate\",[\"family_eq\",\"gemini-3.5-flash-lite\"],[\"lit\",1]]],[\"scale\",1,[\"gate\",[\"family_eq\",\"gpt-oss-120b\"],[\"lit\",1]]],[\"scale\",0.25,[\"neg\",[\"normalize\",[\"field\",\"price_in\"]]]],[\"scale\",0.45,[\"neg\",[\"normalize\",[\"field\",\"price_out\"]]]],[\"scale\",0.2,[\"field\",\"success_rate\"]],[\"scale\",0.1,[\"neg\",[\"normalize\",[\"field\",\"latency_ms\"]]]]],[\"argmax\"],[\"id\"],[\"always\",{\"action\":\"next_candidate\"}]],\"timeout_ms\":22000,\"first_token_timeout_ms\":7000},\"plugin\":\"openai-compatible\",\"provider\":\"llm-router\",\"plugin_config\":{\"api_url\":\"https://router.ygr.ai\",\"api_key_env_var\":\"LLM_ROUTER_API_KEY\"},\"fallback_validator\":\"0x3bfC19e"
     },
     {
       "scenario": "S2",
       "actor": "S2-curator",
       "fn": "takedown",
       "label": "takedown",
-      "hash": "0x807c591c02c629f245fd1efee80e89a84f5c85e5341df3864eae27c1e5c8570a",
-      "ms": 7052,
+      "hash": "0x6ecd66a7e3cdef7ca209950000531627ed66ad195291b4eb47cd9bd22899b963",
+      "ms": 7382,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1238,8 +1217,8 @@
       "actor": "S1-anyone",
       "fn": "release",
       "label": "release",
-      "hash": "0x2809bffd943a63c38e0fc182c9d54da7ef3e77c4bdaa094c6f33d0ca83e42a0d",
-      "ms": 7334,
+      "hash": "0x5ae62b00be7c331c2e23705a2672a853b2bb05a0da67d2e5b984c0f9f181dae3",
+      "ms": 7177,
       "failed": false,
       "ok": true,
       "unknown": false,
@@ -1248,8 +1227,7 @@
     }
   ],
   "notes": [
-    "deployed 0xAbca00A029bdEaF706ed136DAE54bc107A68ac9d in transaction 0x66236d9ed47953126f73e8ae3bb533f49fdf01b130accf1828ea658adc8b268b",
-    "S1 A: the gate answered UNSURE for a compliant message; using the appeal / curator path"
+    "deployed 0xcef1d3Fc0638070C097bbceDDD0d362BFD09912A in transaction 0x3d73fa709fb549d839eff1c8e7e074136977b27c3d0d240d18606322725f50a9"
   ],
   "aborted": []
 }
