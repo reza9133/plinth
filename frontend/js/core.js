@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/genlayer-js@1.1.8";
 import { studionet } from "https://esm.sh/genlayer-js@1.1.8/chains";
-import { keccak256, toHex, formatEther, parseEther } from "https://esm.sh/viem@2.57.13";
+import { keccak256, toHex, formatEther, parseEther, getAddress } from "https://esm.sh/viem@2.57.13";
 import { ERRORS } from "./errors.js";
 
 export { parseEther };
@@ -46,8 +46,10 @@ export async function read(fn, args = []) {
   }
   throw err;
 }
+// Wallets such as MetaMask hand out lowercase addresses. Studionet's sim_fundAccount answers "ok" but credits nothing for them
+// (genlayer-studio issue #1788), so every address sent to the simulator is turned into its EIP-55 checksum form first.
 export async function balanceOf(address) {
-  const res = await fetch(RPC, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_getBalance", params: [address, "latest"] }) });
+  const res = await fetch(RPC, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_getBalance", params: [getAddress(address), "latest"] }) });
   const out = await res.json();
   if (out?.error) throw new Error(out.error.message || "The balance could not be read.");
   return out?.result != null ? BigInt(out.result) : 0n;
@@ -59,7 +61,7 @@ export async function faucet(address, genAmount = 100) {
   const before = await balanceOf(address).catch(() => null);
   let out;
   try {
-    const res = await fetch(RPC, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: Date.now(), method: "sim_fundAccount", params: [address, wei] }) });
+    const res = await fetch(RPC, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: Date.now(), method: "sim_fundAccount", params: [getAddress(address), wei] }) });
     out = await res.json();
   } catch (e) { throw new Error(`The faucet did not answer (${e.message}).${hint}`); }
   if (out?.error) throw new Error(`The faucet refused (${out.error.message || "rpc error"}).${hint}`);
