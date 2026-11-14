@@ -48,13 +48,29 @@ export async function read(fn, args = []) {
 }
 export async function balanceOf(address) {
   const res = await fetch(RPC, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_getBalance", params: [address, "latest"] }) });
-  const out = await res.json(); return out?.result != null ? BigInt(out.result) : 0n;
+  const out = await res.json();
+  if (out?.error) throw new Error(out.error.message || "The balance could not be read.");
+  return out?.result != null ? BigInt(out.result) : 0n;
 }
 export async function faucet(address, genAmount = 100) {
   // Studionet only: the simulator tops an account up. The number is written by hand because JSON cannot carry a BigInt.
   const wei = (BigInt(genAmount) * 10n ** 18n).toString();
-  const res = await fetch(RPC, { method: "POST", headers: { "content-type": "application/json" }, body: `{"jsonrpc":"2.0","id":1,"method":"sim_fundAccount","params":["${address}",${wei}]}` });
-  const out = await res.json(); if (out.error) throw new Error(out.error.message || "The faucet refused.");
+  const before = await balanceOf(address).catch(() => null);
+  let res, out;
+  try {
+    res = await fetch(RPC, { method: "POST", headers: { "content-type": "application/json" }, body: `{"jsonrpc":"2.0","id":1,"method":"sim_fundAccount","params":["${address}",${wei}]}` });
+  } catch { throw new Error("The Studionet faucet could not be reached. Check your connection and try again."); }
+  try { out = await res.json(); } catch { throw new Error(`The faucet answered with HTTP ${res.status} and no usable data. Try again in a minute.`); }
+  if (out?.error) throw new Error(out.error.message || "The faucet refused.");
+  if (!res.ok) throw new Error(`The faucet answered with HTTP ${res.status}. Try again in a minute.`);
+  if (before == null) return;
+  // The simulator may book the top-up a moment later: wait until the balance really moved, so the page never shows a stale number.
+  for (let i = 0; i < 15; i++) {
+    const now = await balanceOf(address).catch(() => null);
+    if (now != null && now > before) return now;
+    await sleep(1000);
+  }
+  throw new Error("The faucet accepted the request, but the balance has not changed yet. Wait a moment and reload the page.");
 }
 
 /* ---------- wallet: EIP-6963 discovery, connect, disconnect, network switch ---------- */
