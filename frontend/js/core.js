@@ -11,7 +11,7 @@ export const GITHUB = "https://github.com/reza9133/plinth";
 export const TWITTER = "https://x.com/amirhp771";
 export const CHAIN_ID = 61999, CHAIN_HEX = "0xf22f";
 export const RPC = studionet?.rpcUrls?.default?.http?.[0] ?? "https://studio.genlayer.com/api";
-export const EXPLORER = studionet?.blockExplorers?.default?.url ?? "https://genlayer-explorer.vercel.app";
+export const EXPLORER = "https://explorer-studio.genlayer.com"; // fixed on purpose: the library default points to another explorer
 const CHAIN_PARAMS = { chainId: CHAIN_HEX, chainName: "GenLayer Studionet", rpcUrls: [RPC], nativeCurrency: { name: "GEN Token", symbol: "GEN", decimals: 18 }, blockExplorerUrls: [EXPLORER] };
 
 /* ---------- small helpers ---------- */
