@@ -332,3 +332,7 @@ Options: `--address 0x...` (use a deployed contract instead of deploying a new o
 live model, so its answers (and the account balances, which move when emitted transfers are processed) are warnings:
 the report lists what the gate said for every message. If the gate is unsure about, or refuses, a compliant message,
 the script uses the appeal and curator paths and records it. Run it from a Codespace; Studionet is not reachable from every sandbox.
+
+## Front end
+
+The website lives in `frontend/` (static files, no build). Run it with `cd frontend && npx serve .`. See `frontend/README.md`.
